@@ -339,7 +339,6 @@ class TKANCell(Layer, DropoutRNNCell):
             "units": self.units,
             "activation": activations.serialize(self.activation),
             "tkan_sub_layers": self.tkan_sub_layers,
-            "activation": activations.serialize(self.activation),
             "recurrent_activation": activations.serialize(
                 self.recurrent_activation
             ),
