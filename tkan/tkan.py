@@ -666,5 +666,14 @@ class TKAN(RNN):
         return {**base_config, **config}
 
     @classmethod
-    def from_config(cls, config):
+    def from_config(cls, config, custom_objects=None):
+        """initializer from layer config"""
+        config = dict(**config)
+        activation = config.pop("activation")
+        tkan_activations = config.pop("tkan_activations", [])
+        config["activation"] = activations.deserialize(activation, custom_objects=custom_objects)
+        config["tkan_activations"] = [
+            activations.deserialize(activation, custom_objects=custom_objects)
+            for activation in tkan_activations
+        ]
         return cls(**config)
