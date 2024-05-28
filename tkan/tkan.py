@@ -160,7 +160,9 @@ class TKANCell(Layer, DropoutRNNCell):
                 "Received an invalid value for argument `units`, "
                 f"expected a positive integer, got {units}."
             )
-        tkan_activations = tkan_activations or [BSplineActivation(3)]
+        tkan_activations = [activations.get(activation) for activation in (tkan_activations or [])]
+        if not tkan_activations:
+            tkan_activations = [BSplineActivation(3)]
         super().__init__(**kwargs)
         self.units = units
         self.activation = activations.get(activation)
